@@ -1,38 +1,55 @@
-.App {
-  text-align: center;
-}
+@import url('http://fonts.cdnfonts.com/css/avenir');
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*{
+  font-family: 'Avenir', sans-serif;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.pageview{
+  background-color: #f0f6fd;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
-.App-link {
-  color: #61dafb;
+.hoverTableEffect:hover{
+  background-color: rgb(242, 242, 242);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.calender-item{
+  padding: 10px 20px;
+  border-radius: 8px;
+  border-left: 8px solid rgb(0, 63, 172);
+  background-color: rgb(215, 233, 250);
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+  margin: 10px 0px;
+}
+
+.calener-list-heading{
+  font-size: 20px;
+  font-weight: 700;
+  color: rgb(0, 35, 98);
+}
+
+.calender-list-time{
+  color: rgb(105, 105, 105);
+  font-size: 16;
+  
+}
+.circular-info{
+  width: 55px;
+  height: 55px;
+  background: white;
+  box-shadow: rgba(0, 63, 172, 0.2) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+  border-radius: 40px;
+  color: rgb(0, 63, 172);
+  font-weight: bold;
+}
+
+.visible{
+  visibility: visible;
+}
+
+.invisible{
+  display: none !important;
+  width: 0;
+  height: 0;
 }
