@@ -7,4 +7,19 @@
 
 .active{
     background-color: rgb(240, 240, 240);
+    color: black;
+    font-weight: bold !important;
+}
+
+.white-link{
+    color: white !important;
+    text-decoration: none;
+}
+
+.white-link:hover{
+    color: rgb(230, 223, 223) !important;
+}
+
+@media only screen and (max-device-width: 810px){
+    
 }

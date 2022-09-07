@@ -10,7 +10,7 @@ export const routesData = [
         title: 'Dashboard',
         url: '/dashboard',
         icon: <DashboardIcon />
-    },{
+    },{ 
         title: 'Employee List',
         url: '/employeeslist',
         icon: <PeopleIcon />
@@ -29,6 +29,10 @@ export const routesData = [
     },{
         title: 'Daily Attendence',
         url: '/attendence',
+        icon: <QrCodeScannerIcon />
+    },{
+        title: 'Admin Manager',
+        url: '/manage-admin',
         icon: <QrCodeScannerIcon />
     },
 ]

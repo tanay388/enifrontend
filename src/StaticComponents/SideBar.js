@@ -1,6 +1,4 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
+import * as React from 'react'
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
@@ -10,7 +8,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import './staticcomponents.css'
 import { routesData } from './routes';
-import { Button } from '@mui/material';
+import { Box, Button, Drawer } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -19,9 +17,24 @@ export default function SideBar() {
   React.useEffect(() => {
     setRoutename(window.location.pathname);
   }, [])
+
+  const Logout = () => {
+    localStorage.setItem('token', "");
+
+
+    setTimeout(function () {
+      window.location.pathname = "/"
+    }, 1000);
+
+    // window.location.reload();
+  }
+
+  const handleVisibility = () => {
+    return window.location.pathname.includes("/dashboard") || window.location.pathname.includes("/employeeslist") || window.location.pathname.includes("/addemploy") || window.location.pathname.includes("/manage-schedules") || window.location.pathname.includes("/view-schedules") || window.location.pathname.includes("/attendence");
+  }
   
   return (
-    <Box id="sidebar-continer-box" sx={{ display: 'flex' }} className={window.location.pathname==="/login"?"invisible":"visible"}>
+    <Box id="sidebar-continer-box" sx={{ display: 'flex' }} className={handleVisibility()?"visible":"invisible"}>
       <CssBaseline />
       <Drawer
         variant="permanent"
@@ -41,7 +54,7 @@ export default function SideBar() {
               className={window.location.pathname === text.url? "active": ""}
               disablePadding>
                 <ListItemButton >
-                  <ListItemIcon>
+                  <ListItemIcon className={window.location.pathname === text.url? "active": ""}>
                     {text.icon}
                   </ListItemIcon>
                   <ListItemText primary={text.title} />
@@ -52,8 +65,8 @@ export default function SideBar() {
           </List>
 
 
-          <Button variant="contained" style={{width: "80%", marginTop: "80px", marginLeft: "10%", marginRight:"10%"}}>
-            Logout
+          <Button onClick={Logout} variant="contained" style={{width: "80%", marginTop: "80px", marginLeft: "10%", marginRight:"10%"}}>
+            {"Logout"}
           </Button>
         </Box>
       </Drawer>

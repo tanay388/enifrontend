@@ -2,6 +2,7 @@ import axios from "axios"
 import { adminUrl } from "../Assets/Constants/Constants";
 
 export const callEmployeesList = async () => {
+    
     let response = [];
     const url= adminUrl + "/allEmploy";
     await axios.get(url).then((res) => {
@@ -28,6 +29,20 @@ export const updateEmployee = async (empId, userData) => {
     return response
 }
 
+export const updateSchedulefromID = async (scheduleId, userData) => {
+    let response = 201;
+    const url= adminUrl + "/editSchedule/" + scheduleId;
+    await axios.put(url, userData).then((res) => {
+        response = res.status;
+        console.log(res)
+    })
+    .catch((e) =>{
+        console.log(e)
+    })
+
+    return response
+}
+
 export const addNewEmployee = async (userData) => {
     let response = 201;
     const url= adminUrl + "/newEmploy";
@@ -42,6 +57,19 @@ export const addNewEmployee = async (userData) => {
     return response
 }
 
+export const loginAdmin = async (userData) => {
+    let response = 201;
+    const url= adminUrl + "/newEmploy";
+    await axios.post(url, userData).then((res) => {
+        response = res.data._id;
+        console.log(response)
+    })
+    .catch((e) =>{
+        console.log(e)
+    })
+
+    return response
+}
 
 export const deleteEmployeeID = async (EmpID) => {
     let response = 201;
@@ -119,7 +147,7 @@ export const addNewSchedule = async (userData) => {
     const url= adminUrl + "/addSchedule";
     await axios.post(url, userData).then((res) => {
         response = res;
-        console.log(response)
+        // console.log(response)
     })
     .catch((e) =>{
         console.log(e)
@@ -152,6 +180,40 @@ export const getAllAttendenceOfMonth = async (date) => {
     })
     .catch((e) =>{
         console.log(e)
+    })
+
+    return response
+}
+
+export const getDashboardData = async (date) => {
+    let response = [];
+    const url= adminUrl + "/getDashboardData";
+    await axios.get(url).then((res) => {
+        response = res.data;
+        // console.log(res.data)
+    })
+    .catch((e) =>{
+        console.log(e)
+    })
+
+    return response
+}
+
+
+export const verifyUserToken = async (userData) => {
+    let response = 402;
+    const url= adminUrl + "/verifyUserToken";
+    const data = {
+        "token": userData
+    }
+    await axios.post(url, data).then((res) => {
+        response = res.status;
+        // console.log(response)
+    })
+    .catch((e) =>{
+        console.log(e)
+        response = e.response.status;
+
     })
 
     return response

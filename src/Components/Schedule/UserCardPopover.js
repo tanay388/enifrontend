@@ -47,13 +47,14 @@ function UserCardPopover({
   phone,
   isLoggedin,
 }) {
+  const idx = open ? 'simple-popover' : undefined;
   return (
     <div>
       <Popover
-        id="mouse-over-popover"
-        sx={{
-          pointerEvents: "none",
-        }}
+        id={idx}
+        // sx={{
+        //   pointerEvents: "none",
+        // }}
         open={open}
         anchorEl={anchorEl}
         anchorOrigin={{
@@ -89,6 +90,7 @@ function UserCardPopover({
             <Chip label={designation} />
 
             <a href={"mailto:"+email}>{email}</a>
+            <a href={"tel:"+phone}>{phone}</a>
             
           </CardContent>
         </Card>

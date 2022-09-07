@@ -32,11 +32,16 @@ function ShowQRCode({ openDelete, handleCloseDelete, row }) {
             onClick={downloadQRCode}
             className={row._id ? "visible" : "invisible"}>Download Qr Code</Button>
           <p style={{marginTop: "20px"}} className={row._id ? "visible" : "invisible"}>
+            Emp ID: {row._id}
+            <br></br>
+            
             Name: {row.Name}
             <br></br>
-            Phone: {row.Phone}
+            Designation: {row.Designation}
             <br></br>
-            EmailID: {row.Email}
+            Email: <a href={'mailto:'+ row.Email}>{row.Email}</a>
+            <br></br>
+            Phone: {row.Phone}
           </p>
         </DialogContent>
         <DialogActions>

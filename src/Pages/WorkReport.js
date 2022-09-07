@@ -136,6 +136,7 @@ function WorkReport() {
             <Grid item sm={3} alignContent="center" justifyContent={"center"} style={{paddingBottom: "4px !important",paddingTop: "0px !important"}}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
+                views={['year', 'month']}
                 label="Year and Month"
                 inputFormat="yyyy-MM"
                 showMonthYearPicker

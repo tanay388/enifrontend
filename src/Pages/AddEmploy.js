@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import TopBar from '../Components/TopBar'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, TextField } from '@mui/material';
 import QRCode from "qrcode.react";
 import { addNewEmployee } from '../Api/api';
 import Skeleton from '@mui/material/Skeleton';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 
 function AddEmploy() {
   const [disable, setDisable] = useState(false);
@@ -19,6 +20,7 @@ function AddEmploy() {
   const [address, setAddress] = useState("");
   const [designation, setDesignation] = useState("");
   const [empId, setEmpId] = useState("");
+  const [dateOfHire, setDateOfHire] = useState(Date.now());
 
   const nameChangeHandler = (event) => {
     setName(event.target.value);
@@ -54,6 +56,7 @@ function AddEmploy() {
       "Address": address,
       "Designation": designation,
       "Active": true,
+      "DateOfHire": dateOfHire,
     }
     addData(formData)
     console.log(formData);
@@ -73,18 +76,25 @@ function AddEmploy() {
     setPhone("");
     setSalary(0)
     setEmpId("")
+    setDateOfHire(null)
     setDisable(false)
   }
   return (
     <div className="pageview">
       <TopBar name="Add new Employee" />
       <Grid container spacing={2}>
-      <Grid item xs={6} md={8}>
+      <Grid item xs={12} md={8}>
       <Box  style={{ backgroundColor: "white", borderRadius: '5px', padding: '25px' }}>
+      
         <Form onSubmit={onFormSubmit}>
+          
           <Form.Group className="mb-3" controlId="fullname">
             <Form.Label>Full Name</Form.Label>
             <Form.Control type="text" value={name} onChange={nameChangeHandler} placeholder="Enter Full Name" />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="dateofjoin">
+            <Form.Label>Date Of Hire</Form.Label>
+            <Form.Control type="date" value={dateOfHire} onChange={(e) => {setDateOfHire(e.target.value)}} placeholder="Enter Full Name" />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
@@ -115,7 +125,7 @@ function AddEmploy() {
         </Form>
       </Box>
       </Grid>
-      <Grid item xs={6} md={4}>
+      <Grid item xs={12} md={4}>
       <Box  style={{ backgroundColor: "white", borderRadius: '5px', padding: '25px' }}>
         <h5><strong>Generted QR Code</strong></h5>
         <p className={!empId? "visible" : "invisible"}>QR code for the employee will be generated here once it is added succcessfully.</p>

@@ -1,7 +1,13 @@
 @import url('http://fonts.cdnfonts.com/css/avenir');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 *{
   font-family: 'Avenir', sans-serif;
+}
+.m--30px{
+  margin-left: -30px;
 }
 .pageview{
   background-color: #f0f6fd;
@@ -52,4 +58,42 @@
   display: none !important;
   width: 0;
   height: 0;
+}
+
+.link-button-redaccent{
+  background-color: rgb(255, 0, 0);
+  border-radius: 0px !important;
+  color: white;
+  transition: all 0.31s;
+}
+.text-red{
+  color: rgb(255, 0, 0);
+}
+.text-red:hover{
+  color: rgb(192, 0, 0);
+}
+.sharp{
+  border-radius: 0px !important;
+}
+.link-button-redaccent:hover{
+  background-color: rgb(192, 0, 0);
+  color: white;
+}
+
+@media only screen and (max-device-width: 840px){
+  .calener-list-heading{
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .circular-info{
+    font-weight: 500;
+    font-size: 14px;
+  }
+  .calender-list-time{
+    font-size: 14px;
+  }
+  .title-databox{
+    font-size: 18px;
+  }
 }

@@ -2,43 +2,14 @@ import { format } from "date-fns";
 import React, { useState, useEffect } from "react";
 import { getByEmployeeID } from "../Api/api";
 import UserCardPopover from "../Components/Schedule/UserCardPopover";
-import { Avatar, Chip, IconButton } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import Badge from "@mui/material/Badge";
+import { Avatar, Grid, IconButton, Tooltip } from "@mui/material";
 import WhereToVoteIcon from '@mui/icons-material/WhereToVote';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DeleteSchedulePopup from "./Schedule/DeleteSchedulePopup";
-import { borderRadius } from "@mui/system";
-
-const StyledBadge = styled(Badge)(({ theme }) => ({
-  "& .MuiBadge-badge": {
-    backgroundColor: "#44b700",
-    color: "#44b700",
-    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-    "&::after": {
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      borderRadius: "50%",
-      animation: "ripple 1.2s infinite ease-in-out",
-      border: "1px solid currentColor",
-      content: '""',
-    },
-  },
-  "@keyframes ripple": {
-    "0%": {
-      transform: "scale(.8)",
-      opacity: 1,
-    },
-    "100%": {
-      transform: "scale(2.4)",
-      opacity: 0,
-    },
-  },
-}));
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import UpdateSchedule from "./Schedule/UpdateSchedule";
+import ChipAvatar from "./Schedule/ChipAvatar";
 
 function CalenderListItem(props) {
   
@@ -47,6 +18,11 @@ function CalenderListItem(props) {
   const [openDelete, setOpenDelete] = useState(false);
   const handleClickOpenDelete = () => {setOpenDelete(true);};
   const handleCloseDelete = () => {setOpenDelete(false);};
+
+  // Update Employee
+  const [openUpdate, setOpenUpdate] = useState(false);
+  const handleClickOpenUpdate = () => {setOpenUpdate(true);};
+  const handleCloseUpdate = () => {setOpenUpdate(false);};
   
   const [id, setID] = useState(props.propid)
 
@@ -92,7 +68,7 @@ function CalenderListItem(props) {
   }, []);
 
   const getEmployeeData = async () => {
-    await getByEmployeeID(props.empName).then((res) => {
+    await getByEmployeeID(props.empName[0]).then((res) => {
       // console.log(res.data);
       setName(res.data.Name);
       setEmpEmail(res.data.Email);
@@ -123,61 +99,60 @@ function CalenderListItem(props) {
       <div style={{ paddingLeft: "20px", flexGrow: "1" }}>
         <div style={{display: "flex"}}>
           <h3 style={{ paddingRight: "20px", flexGrow: "1"}} className="calener-list-heading">{props.title}</h3>
-          <IconButton onClick={handleClickOpenDelete} style={{backgroundColor: "white", width: "40px", height:"40px", marginLeft: "5px", boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"}}>
+          
+          <Tooltip title="Delete">
+            <IconButton onClick={handleClickOpenDelete} >
             <DeleteIcon color="warning" />
-          </IconButton>
+            </IconButton>
+          </Tooltip>
+
+          <Tooltip title="Update">
+            <IconButton onClick={handleClickOpenUpdate} >
+              <EditIcon color="success" />
+            </IconButton>
+          </Tooltip>
         </div>
         
         <p className="calender-list-time">
           {format(startDate, "hh:MM a") + " - " + format(endDate, "hh:MM a")}
         </p>
-        <div style={{width: "fit-content", background:"white", padding: "5px 10px", borderRadius: "20px"}}>
+        {/* <div style={{display: 'flex'}}> */}
+        <div style={{width: "fit-content", display:"inline",  background:"white", padding: "5px 10px", fontSize: "14px", borderRadius: "20px"}}>
           <WhereToVoteIcon /> {props.location}
         </div>
+        <div style={{height: "10px"}} ></div>
+        
+        <Grid container spacing={1} >
+        {
+          
+          props.empName.map((val) => {
+              return (
+            <Grid item >
+            <ChipAvatar empIDSingle={val}/>
+            </Grid>
+              )
+            })
+        }
+        
+        </Grid>
+        {/* <div style={{width: "fit-content", background:"white", padding: "5px 10px", borderRadius: "20px"}}>
+          <AccountCircleIcon /> {name}
+        </div> */}
+        {/* </div> */}
       </div>
-      <div
-        style={{
-          display: "flex",
-          width: "80px",
-          justifyContent: "end",
-          paddingLeft: "10px",
-        }}
-      >
-        <Avatar
-          // className={!isLoggedIn ? "visible" : "invisible"}
-          alt={name}
-          src={`https://ui-avatars.com/api/?name=${name}&color=7F9CF5&background=FFFFFF`}
-          onMouseEnter={handleClick}
-          onMouseLeave={handleClose}
+      
+
+      <DeleteSchedulePopup row={id} openDelete={openDelete} handleCloseDelete={handleCloseDelete} />
+
+      <UpdateSchedule show={openUpdate} handleClose={handleCloseUpdate} 
+           schid={id}
+           eId={props.empName}
+           eTitle={props.title}
+           eStart={props.startTime}
+           eEnd={props.endTime}
+           eDate={props.date}
+           eLocation={props.location}
         />
-
-        {/* <StyledBadge
-          className={isLoggedIn? "visible" : "invisible"}
-          overlap="circular"
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-          variant="dot"
-        >
-          <Avatar
-            alt={name}
-            src={`https://ui-avatars.com/api/?name=${name}&color=7F9CF5&background=FFFFFF`}
-            onMouseEnter={handleClick}
-            onMouseLeave={handleClose}
-          />
-        </StyledBadge> */}
-
-        <UserCardPopover
-          anchorEl={anchorEl}
-          handlePopoverClose={handleClose}
-          open={open}
-          name={name}
-          phone={empPhone}
-          email={empEmail}
-          designation={designation}
-          isLoggedin={isLoggedIn}
-        />
-
-        <DeleteSchedulePopup row={id} openDelete={openDelete} handleCloseDelete={handleCloseDelete} />
-      </div>
     </div>
   );
 }

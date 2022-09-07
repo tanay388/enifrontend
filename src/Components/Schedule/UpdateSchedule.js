@@ -6,39 +6,41 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Grid } from "@mui/material";
 import Modal from "react-bootstrap/Modal";
 import TextField from "@mui/material/TextField";
-import AutocompleteEmployList from "./AutocompleteEmployList";
-import { format } from "date-fns";
-import { addNewSchedule } from "../Api/api";
-import ToastMessage from "./ToastMessage";
-import ChipAvatar from "./Schedule/ChipAvatar";
+import AutocompleteEmployList from "../AutocompleteEmployList";
+import ToastMessage from "../ToastMessage";
+import { updateSchedulefromID } from "../../Api/api";
+import ChipAvatar from "./ChipAvatar";
 
-function AddScheduleModal({ show, handleClose }) {
-  const [empID, setEmpID] = useState([]);
-  const [title, setTitle] = useState("");
-  const [location, setLocation] = useState("");
-  const [date, setDate] = useState(Date.now());
-  const [startTime, setStartTime] = useState(Date.now());
-  const [endTime, setEndTime] = useState(Date.now());
+function UpdateSchedule({ show, handleClose, schid, eId, eTitle, eLocation, eDate, eStart, eEnd }) {
+    const eedate= new Date(eDate);
+    const eestart= new Date(eStart);
+    const eeend= new Date(eEnd);
+  const [empID, setEmpID] = useState(eId);
+  const [title, setTitle] = useState(eTitle);
+  const [location, setLocation] = useState(eLocation);
+  const [date, setDate] = useState(eedate);
+  const [startTime, setStartTime] = useState(eestart);
+  const [endTime, setEndTime] = useState(eeend);
 
-
+  
   const handleStartTime = (newValue) => {
     setStartTime(newValue);
     setDate(newValue);
-    console.log(date);
+    // console.log(date);
   };
   const handleEndTime = (newValue) => {
     setEndTime(newValue);
-    console.log(endTime);
+    // console.log(endTime);
   };
 
   const handleLocation = (e) => {
     setLocation(e.target.value)
-    console.log(location)
+    // console.log(location)
   }
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
-    console.log(title)
+    // console.log(title)
   }
 
   // Toast message
@@ -55,21 +57,20 @@ function AddScheduleModal({ show, handleClose }) {
     setOpenAlert(false);
   };
 
-  const handleDelteEmploy = (value) => {
-    const filteredData = empID.filter((val) => val !== value);
-    setEmpID(filteredData);
-  }
-
   const setEmpIDArray = (value) => {
-      if(!empID.includes(value))
-      setEmpID([...empID, value])
-      // console.log(value);
-      // console.log(empID);
-  }
+    if(!empID.includes(value))
+    setEmpID([...empID, value])
+    // console.log(value);
+    // console.log(empID);
+}
+
+const handleDelteEmploy = (value) => {
+  const filteredData = empID.filter((val) => val !== value);
+  setEmpID(filteredData);
+}
 
 
-
-  const handleAddSchedule = () => {
+  const handleUpdateSchedule = () => {
     const scheduledData = {
       "EmpID": empID,
       "CurrDate": (date.getFullYear() + ("-") + ("0" + (date.getMonth()+1)).slice(-2) + ("-") + ("0" + date.getDate()).slice(-2)),
@@ -79,15 +80,15 @@ function AddScheduleModal({ show, handleClose }) {
       "Description": title,
     }
 
-    postScheduleData(scheduledData)
+    updateScheduleData(scheduledData)
 
     // console.log(scheduledData)
   };
 
-  const postScheduleData = async (data) => {
-    await addNewSchedule(data).then((res) => { 
-      if (res.status === 200) {
-        setAlertMessage("Added Succesfully!");
+  const updateScheduleData = async (data) => {
+    await updateSchedulefromID(schid, data).then((res) => { 
+      if (res === 200) {
+        setAlertMessage("Updated Succesfully!");
         setAlertColor("success");
         handleClickAlert();
         setTimeout(() => {  window.location.reload(); }, 2000);
@@ -115,19 +116,18 @@ function AddScheduleModal({ show, handleClose }) {
         style={{ zIndex: "1203", marginTop: "40px" }}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Add schedules For Employee</Modal.Title>
+          <Modal.Title>Update schedule </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AutocompleteEmployList setEmpID={setEmpIDArray} />
-          <Grid container spacing={1}>
-            {
-              empID.map((val) => {
-                return (
-                  <Grid item> <ChipAvatar empIDSingle={val} handleDelete={handleDelteEmploy} /></Grid>
-                ) 
-              })
-            }
-          </Grid>
+        <AutocompleteEmployList setEmpID={setEmpIDArray} />
+
+<div>
+  {
+    empID.map((val) => {
+      return <ChipAvatar empIDSingle={val} handleDelete={handleDelteEmploy} />
+    })
+  }
+</div>
 
           <Grid container style={{ marginTop: "10px" }} spacing={1}>
             <Grid item sm={6}>
@@ -175,7 +175,7 @@ function AddScheduleModal({ show, handleClose }) {
 
           <Button
             variant="primary"
-            onClick={handleAddSchedule}
+            onClick={handleUpdateSchedule}
             style={{ width: "100%", marginTop: "10px" }}
           >
             Add Task
@@ -186,4 +186,4 @@ function AddScheduleModal({ show, handleClose }) {
   );
 }
 
-export default AddScheduleModal;
+export default UpdateSchedule;

@@ -48,10 +48,10 @@ function IndividualSchedules() {
         }} >
             
             <Grid container spacing={2}>
-            <Grid item sm={7} style={{alignItems: "center"}}>
-            <h2 style={{fontSize: "24px", color: "#00137b", fontWeight: "bold", marginBottom: "30px"}}>Available Schedules</h2>
+            <Grid item xs={5} md={7} style={{alignItems: "center"}}>
+            <h2 style={{fontSize: "18px", color: "#00137b", fontWeight: "bold", marginBottom: "30px"}}>Available Schedules</h2>
             </Grid>
-            <Grid item sm={5} style={{alignItems: "center"}}>
+            <Grid item xs={7} md={5} style={{alignItems: "center"}}>
                 <AutocompleteEmployList setEmpID={onEmpIdChangehandler}/>
             </Grid>
         </Grid>

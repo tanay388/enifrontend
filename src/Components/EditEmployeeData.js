@@ -71,6 +71,7 @@ function EditEmployeeData({ show, handleClose, userData }) {
         setAlertMessage("Edited Succesfully!");
         setAlertColor("success");
         handleClickAlert();
+        setTimeout(() => {  window.location.reload(); }, 2000);
       } else {
         setAlertMessage("Failed");
         setAlertColor("warning");
@@ -172,11 +173,11 @@ function EditEmployeeData({ show, handleClose, userData }) {
             </Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
+        {/* <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-        </Modal.Footer>
+        </Modal.Footer> */}
       </Modal>
     </>
   );

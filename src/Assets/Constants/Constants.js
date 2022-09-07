@@ -1,7 +1,7 @@
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
-export const baseUrl= "http://localhost:5000/"
-export const adminUrl = "http://localhost:5000/admin"
+export const baseUrl= "https://enisolution.com:5000/"
+export const adminUrl = "https://enisolution.com:5000/admin/"
 
 
 // download QR code

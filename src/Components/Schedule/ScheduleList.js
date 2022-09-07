@@ -13,6 +13,8 @@ function ScheduleList({SchedulesList}) {
   return (
     <>
         {SchedulesList.map((value, key) => {
+
+          console.log(SchedulesList)
           
               return (
                 <CalenderListItem

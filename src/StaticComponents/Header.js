@@ -10,6 +10,7 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import LogoEni from '../Assets/Logo/logo_eni.png';
+import { LinearProgress } from '@mui/material';
 
 
 const Header = () => {
@@ -31,11 +32,26 @@ const Header = () => {
     setAnchorElUser(null);
   };
 
+  const [isloading, setIsLoading] = React.useState(false)
+
+  const handleLoading = () => {
+    setIsLoading(true)
+  }
+
+  const handleCloseLoading = () => {
+    setIsLoading(false)
+  }
+
+  const handleVisibility = () => {
+    return window.location.pathname.includes("/login") || window.location.pathname.includes("/dashboard") || window.location.pathname.includes("/employeeslist") || window.location.pathname.includes("/addemploy") || window.location.pathname.includes("/manage-schedules") || window.location.pathname.includes("/view-schedules") || window.location.pathname.includes("/attendence");
+  }
+
   return (
-    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+    <AppBar className={ handleVisibility() ? "visible": "invisible"} position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <img src={LogoEni} alt="ENI Logo" style={{width: "80px"}}/>
+          <a href='http://enisolution.com/'><img src={LogoEni} alt="ENI Logo" style={{width: "80px"}}/></a>
+          
           <Typography
           style={{minWidth: '120px'}}
             variant="h6"
@@ -51,8 +67,10 @@ const Header = () => {
             //   textDecoration: 'none',
             }}
           >
-            Dashboard
+            <a href="http://enisolution.com/dashboard" className='white-link'>Dashboard</a>
           </Typography>
+
+        
 {/*           
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -105,9 +123,9 @@ const Header = () => {
 
           <Box sx={{ flexGrow: 1 }} style={{width: "100%", display: 'flex', justifyContent: 'end'}}>
   
-              <IconButton onClick={() => {}} sx={{ p: 0 }}>
+              {/* <IconButton onClick={() => {}} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
+              </IconButton> */}
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -133,7 +151,9 @@ const Header = () => {
           </Box>
         </Toolbar>
       </Container>
+      
     </AppBar>
   );
 };
+
 export default Header;

@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { Box} from '@mui/material'
 
-function AutocompleteEmployList({setEmpID, employ}) {
+function AutoCompleteMultiple({setEmpID, employ}) {
     const [employeesList, setEmployeesList] = useState([]);
 
     useEffect(() => {
@@ -18,6 +18,8 @@ function AutocompleteEmployList({setEmpID, employ}) {
   return (
     <div>
         <Autocomplete
+            multiple
+            limitTags={2}
             defaultValue={employ}
             id="country-select-demo"
             fullWidth
@@ -59,4 +61,4 @@ function AutocompleteEmployList({setEmpID, employ}) {
   )
 }
 
-export default AutocompleteEmployList
+export default AutoCompleteMultiple

@@ -1,4 +1,4 @@
-import React from 'react'
+import {React, useState} from 'react'
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -6,28 +6,50 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Button } from "@mui/material";
 import { updateEmployee } from '../Api/api';
+import ToastMessage from './ToastMessage';
 
 function ActivateEmployee({openDelete, handleCloseDelete, row}) {
+  // Toast message
+  const [openAlert, setOpenAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertColor, setAlertColor] = useState("success");
+  const handleClickAlert = () => {
+    setOpenAlert(true);
+  };
+  const handleCloseAlert = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenAlert(false);
+  };
     const formData = {
         "Active": !row.Active,
     }
     const updateData = async () => {
         await  updateEmployee(row._id, formData).then((res) => {  
-            if(res===200){
-            //   setAlertMessage("Edited Succesfully!")
-            //   setAlertColor("success")
-            //   handleClickAlert();
-            }else{
-            //   setAlertMessage("Failed")
-            //   setAlertColor("warning")
-            //   handleClickAlert();
-            }
-            console.log(res)
+          if (res === 200) {
+            setAlertMessage(row.Active?"Deativated Successfully.":"Activated Successfully.");
+            setAlertColor("success");
+            handleClickAlert();
+            handleCloseDelete();
+            setTimeout(() => {  window.location.reload(); }, 2000);
+            
+          } else {
+            setAlertMessage("Failed to Deativated.");
+            setAlertColor("warning");
+            handleClickAlert();
+          }
            });
         console.log(formData.Active);
     }
   return (
     <>
+    <ToastMessage
+          openAlert={openAlert}
+          handleCloseAlert={handleCloseAlert}
+          alertColor={alertColor}
+          alertMessage={alertMessage}
+        />
       <Dialog
         open={openDelete}
         onClose={handleCloseDelete}
