@@ -9,17 +9,24 @@ import ListItemText from '@mui/material/ListItemText';
 import './staticcomponents.css'
 import { routesData } from './routes';
 import { Box, Button, Drawer } from '@mui/material';
+import ResetPassword from '../Components/ResetPassword/ResetPassword';
 
 const drawerWidth = 240;
 
 export default function SideBar() {
   const [routename, setRoutename] = React.useState("")
+  // Change Password
+  const [showAddNew, setShowAddNew] = React.useState(false);
+  const handleCloseAddNew = () => setShowAddNew(false);
+  const handleShowAddNew = (index) =>{
+    setShowAddNew(true);
+  } 
   React.useEffect(() => {
     setRoutename(window.location.pathname);
   }, [])
 
   const Logout = () => {
-    localStorage.setItem('token', "");
+    localStorage.removeItem('token');
 
 
     setTimeout(function () {
@@ -30,7 +37,7 @@ export default function SideBar() {
   }
 
   const handleVisibility = () => {
-    return window.location.pathname.includes("/dashboard") || window.location.pathname.includes("/employeeslist") || window.location.pathname.includes("/addemploy") || window.location.pathname.includes("/manage-schedules") || window.location.pathname.includes("/view-schedules") || window.location.pathname.includes("/attendence");
+    return window.location.pathname.includes("/dashboard") || window.location.pathname.includes("/manage-admin") || window.location.pathname.includes("/employeeslist") || window.location.pathname.includes("/addemploy") || window.location.pathname.includes("/manage-schedules") || window.location.pathname.includes("/view-schedules") || window.location.pathname.includes("/attendence");
   }
   
   return (
@@ -68,9 +75,10 @@ export default function SideBar() {
           <Button onClick={Logout} variant="contained" style={{width: "80%", marginTop: "80px", marginLeft: "10%", marginRight:"10%"}}>
             {"Logout"}
           </Button>
+          <div onClick={handleShowAddNew} style={{color: "blue", textAlign: "center", marginTop: "15px", cursor: "pointer"}}>Reset Password</div>
         </Box>
       </Drawer>
-      
+      <ResetPassword show={showAddNew} handleClose={handleCloseAddNew} />
     </Box>
   );
 }

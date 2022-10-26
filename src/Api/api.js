@@ -1,10 +1,39 @@
 import axios from "axios"
 import { adminUrl } from "../Assets/Constants/Constants";
 
+export const verifyAdminUserLogin = async (userData) => {
+    let response = 201;
+    const url= adminUrl + "/verifyUserToken";
+    await axios.post(url, userData).then((res) => {
+        // response = res.data._id;
+        console.log(res)
+    })
+    .catch((e) =>{
+        console.log(e)
+    })
+
+    return response
+}
+
+
 export const callEmployeesList = async () => {
     
     let response = [];
     const url= adminUrl + "/allEmploy";
+    await axios.get(url).then((res) => {
+        // console.log(res.data);
+        response = [...res.data]
+    }).catch((err) => {
+        console.log(err)
+    })
+
+    return response
+}
+
+export const callAdminList = async () => {
+    
+    let response = [];
+    const url= adminUrl + "/allAdmin";
     await axios.get(url).then((res) => {
         // console.log(res.data);
         response = [...res.data]
@@ -57,12 +86,41 @@ export const addNewEmployee = async (userData) => {
     return response
 }
 
+
+export const addNewAdmin = async (userData) => {
+    let response = 201;
+    const url= adminUrl + "/register";
+    await axios.post(url, userData).then((res) => {
+        response = res.status;
+        console.log(response)
+    })
+    .catch((e) =>{
+        console.log(e)
+    })
+
+    return response
+}
+
 export const loginAdmin = async (userData) => {
     let response = 201;
     const url= adminUrl + "/newEmploy";
     await axios.post(url, userData).then((res) => {
         response = res.data._id;
         console.log(response)
+    })
+    .catch((e) =>{
+        console.log(e)
+    })
+
+    return response
+}
+
+export const changePasswordAdmin = async (userData) => {
+    let response = 201;
+    const url= adminUrl + "/changePassword";
+    await axios.put(url, userData).then((res) => {
+        response = res.status;
+        // console.log(res)
     })
     .catch((e) =>{
         console.log(e)

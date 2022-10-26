@@ -1,10 +1,17 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import { validateUser } from "../Assets/Constants/Constants";
 import DataBox from "../Components/Dashboard/DataBox";
 import TopBar from "../Components/TopBar";
 import IndividualSchedules from "./IndividualSchedules";
 
 function DashBoard() {
+  useEffect(() => {
+    validateUser();
+  }, [])
+
+
+  
   
   return (
     <div className="pageview">

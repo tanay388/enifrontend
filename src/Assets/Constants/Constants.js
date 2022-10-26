@@ -1,5 +1,6 @@
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
+import { verifyAdminUserLogin } from '../../Api/api'
 export const baseUrl= "https://enisolution.com:5000/"
 export const adminUrl = "https://enisolution.com:5000/admin/"
 
@@ -18,6 +19,25 @@ export const downloadQRCode = () => {
     document.body.removeChild(aEl);
 }
 
+//validate user
+export const validateUser = async () => {
+  const token= localStorage.getItem("token");
+  const email= localStorage.getItem("userEmail");
+
+  const user = {
+    token: token,
+    email: email,
+  }
+  if(token){
+    // localStorage.setItem("token", null);
+    // localStorage.removeItem('token');
+    // window.location.pathname = "/";
+    verifyAdminUserLogin(user).then((res) => {
+      console.log(localStorage.getItem('userId'))
+    });
+    // console.log(token)
+  }
+}
 
 //generate pdf
 export const printDocument = async () => {

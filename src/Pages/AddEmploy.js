@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import TopBar from '../Components/TopBar'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Box, Grid, TextField } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import QRCode from "qrcode.react";
 import { addNewEmployee } from '../Api/api';
 import Skeleton from '@mui/material/Skeleton';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+
 
 function AddEmploy() {
   const [disable, setDisable] = useState(false);
@@ -59,7 +59,7 @@ function AddEmploy() {
       "DateOfHire": dateOfHire,
     }
     addData(formData)
-    console.log(formData);
+    // console.log(formData);
     
   }
   const addData = async (formData) => {

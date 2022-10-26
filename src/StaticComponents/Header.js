@@ -43,7 +43,7 @@ const Header = () => {
   }
 
   const handleVisibility = () => {
-    return window.location.pathname.includes("/login") || window.location.pathname.includes("/dashboard") || window.location.pathname.includes("/employeeslist") || window.location.pathname.includes("/addemploy") || window.location.pathname.includes("/manage-schedules") || window.location.pathname.includes("/view-schedules") || window.location.pathname.includes("/attendence");
+    return window.location.pathname.includes("/login") || window.location.pathname.includes("/manage-admin") || window.location.pathname.includes("/dashboard") || window.location.pathname.includes("/employeeslist") || window.location.pathname.includes("/addemploy") || window.location.pathname.includes("/manage-schedules") || window.location.pathname.includes("/view-schedules") || window.location.pathname.includes("/attendence");
   }
 
   return (

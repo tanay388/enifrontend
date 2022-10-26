@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import React, { useState, useEffect } from "react";
-import { getByEmployeeID } from "../Api/api";
-import UserCardPopover from "../Components/Schedule/UserCardPopover";
+import { addNewSchedule, getByEmployeeID } from "../Api/api";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { Avatar, Grid, IconButton, Tooltip } from "@mui/material";
 import WhereToVoteIcon from '@mui/icons-material/WhereToVote';
 import EditIcon from '@mui/icons-material/Edit';
@@ -10,6 +10,7 @@ import DeleteSchedulePopup from "./Schedule/DeleteSchedulePopup";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import UpdateSchedule from "./Schedule/UpdateSchedule";
 import ChipAvatar from "./Schedule/ChipAvatar";
+import ToastMessage from "./ToastMessage";
 
 function CalenderListItem(props) {
   
@@ -23,6 +24,51 @@ function CalenderListItem(props) {
   const [openUpdate, setOpenUpdate] = useState(false);
   const handleClickOpenUpdate = () => {setOpenUpdate(true);};
   const handleCloseUpdate = () => {setOpenUpdate(false);};
+
+    // Toast message
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [alertColor, setAlertColor] = useState("success");
+    const handleClickAlert = () => {
+      setOpenAlert(true);
+    };
+    const handleCloseAlert = (event, reason) => {
+      if (reason === "clickaway") {
+        return;
+      }
+      setOpenAlert(false);
+    };
+
+  // Duplicate Item
+  const handleAddDupSchedule = () => {
+    const scheduledData = {
+      "EmpID": props.empName,
+      "CurrDate": props.date,
+      "Entry": props.startTime,
+      "Exit": props.endTime,
+      "Location": props.location,
+      "Description": props.title,
+    }
+
+    postScheduleData(scheduledData)
+
+  };
+
+  const postScheduleData = async (data) => {
+    await addNewSchedule(data).then((res) => { 
+      if (res.status === 200) {
+        setAlertMessage("Copied Succesfully!");
+        setAlertColor("success");
+        handleClickAlert();
+        setTimeout(() => {  window.location.reload(); }, 2000);
+      } else {
+        setAlertMessage("Failed");
+        setAlertColor("warning");
+        handleClickAlert();
+      }
+      handleClose();
+    })
+  }
   
   const [id, setID] = useState(props.propid)
 
@@ -82,6 +128,12 @@ function CalenderListItem(props) {
       className="calender-item"
       style={{ display: "flex", alignItems: "center" }}
     >
+      <ToastMessage
+          openAlert={openAlert}
+          handleCloseAlert={handleCloseAlert}
+          alertColor={alertColor}
+          alertMessage={alertMessage}
+        />
       <div
         className="circular-info"
         style={{
@@ -103,6 +155,12 @@ function CalenderListItem(props) {
           <Tooltip title="Delete">
             <IconButton onClick={handleClickOpenDelete} >
             <DeleteIcon color="warning" />
+            </IconButton>
+          </Tooltip>
+
+          <Tooltip title="Duplicate">
+            <IconButton onClick={handleAddDupSchedule} >
+            <ContentCopyIcon color="info" />
             </IconButton>
           </Tooltip>
 

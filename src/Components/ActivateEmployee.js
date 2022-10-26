@@ -40,7 +40,7 @@ function ActivateEmployee({openDelete, handleCloseDelete, row}) {
             handleClickAlert();
           }
            });
-        console.log(formData.Active);
+        // console.log(formData.Active);
     }
   return (
     <>

@@ -29,7 +29,7 @@ function Login() {
 
   const checkLoggedIn = () => {
     const token = localStorage.getItem("token");
-    if(token){
+    if(token != null && token && token != undefined){
       window.location.pathname = "/dashboard";
     }
     
@@ -65,6 +65,8 @@ function Login() {
       if (json.success) {
           // Save the auth token and redirect
           localStorage.setItem('token', json.authToken);
+          localStorage.setItem('userId', json.user._id);
+          localStorage.setItem('userEmail', json.user.email);
           handleOpenAlert();
           setAlertColor("success");
           setAlertMessage("Logged in successfully");

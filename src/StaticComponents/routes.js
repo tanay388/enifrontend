@@ -4,6 +4,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 export const routesData = [
     {
@@ -27,12 +28,12 @@ export const routesData = [
         url: '/view-schedules',
         icon: <CalendarMonthIcon />
     },{
-        title: 'Daily Attendence',
+        title: 'Daily Attendance',
         url: '/attendence',
         icon: <QrCodeScannerIcon />
     },{
         title: 'Admin Manager',
         url: '/manage-admin',
-        icon: <QrCodeScannerIcon />
+        icon: <AdminPanelSettingsIcon />
     },
 ]
