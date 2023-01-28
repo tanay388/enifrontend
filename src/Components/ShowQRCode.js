@@ -8,7 +8,10 @@ import { Button } from '@mui/material';
 import QRCode from "qrcode.react";
 import { downloadQRCode } from '../Assets/Constants/Constants';
 
-function ShowQRCode({ openDelete, handleCloseDelete, row }) {
+function ShowQRCode({ openDelete, handleCloseDelete, row, index }) {
+  var emp_tempID= row.Name.substr(0, 3).toUpperCase();
+  var lastID= String(index).padStart(4, '0');
+  emp_tempID =emp_tempID +lastID; 
   return (
     <>
       <Dialog
@@ -32,7 +35,7 @@ function ShowQRCode({ openDelete, handleCloseDelete, row }) {
             onClick={downloadQRCode}
             className={row._id ? "visible" : "invisible"}>Download Qr Code</Button>
           <p style={{marginTop: "20px"}} className={row._id ? "visible" : "invisible"}>
-            Emp ID: {row._id}
+            Emp ID: {emp_tempID}
             <br></br>
             
             Name: {row.Name}

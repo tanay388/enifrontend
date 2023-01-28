@@ -44,7 +44,7 @@ function TablesList({ headers, userData }) {
               {userData.map((row, index) => (
                 
                 <TableRow key={index} className="hoverTableEffect">   
-                  <TableRowData row={row} />
+                  <TableRowData row={row} idx={index}/>
                 </TableRow>
               ))}
                

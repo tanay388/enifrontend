@@ -2,33 +2,37 @@ import axios from "axios"
 import { adminUrl } from "../Assets/Constants/Constants";
 
 export const verifyAdminUserLogin = async (userData) => {
-    let response = 201;
-    const url= adminUrl + "/verifyUserToken";
-    await axios.post(url, userData).then((res) => {
-        // response = res.data._id;
-        console.log(res)
-    })
-    .catch((e) =>{
-        console.log(e)
-    })
+  let response = 201;
+  const url = adminUrl + "/verifyUserToken";
+  // await axios.post(url, userData).then((res) => {
+  //     // response = res.data._id;
+  //     console.log(res)
+  // })
+  // .catch((e) =>{
+  //     console.log(e)
+  // })
 
-    return response
-}
-
+  return response;
+};
 
 export const callEmployeesList = async () => {
-    
-    let response = [];
-    const url= adminUrl + "/allEmploy";
-    await axios.get(url).then((res) => {
-        // console.log(res.data);
-        response = [...res.data]
-    }).catch((err) => {
-        console.log(err)
+  let response = [];
+  const url = adminUrl + "/allEmploy";
+  await axios
+    .get(url, {
+      method: "HEAD",
+      mode: "no-cors",
     })
+    .then((res) => {
+      // console.log(res.data);
+      response = [...res.data];
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
-    return response
-}
+  return response;
+};
 
 export const callAdminList = async () => {
     

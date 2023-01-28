@@ -34,6 +34,7 @@ function WorkReport() {
         const dateString = dateoriginal.getFullYear() + ("-") + ("0" + (dateoriginal.getMonth()+1)).slice(-2)
         await getAllAttendenceOfMonth(dateString).then((res) => {
             // console.log(res)
+            res.reverse()
           setEmployeesList(res);
           setOriginalList(res);
         });

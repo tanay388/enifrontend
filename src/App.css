@@ -40,6 +40,9 @@
   font-size: 16;
   
 }
+.loggedin-cell{
+  color: red !important;
+}
 .circular-info{
   width: 55px;
   height: 55px;

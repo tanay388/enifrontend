@@ -12,7 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import ShowQRCode from './ShowQRCode';
 import ActivateEmployee from './ActivateEmployee';
 
-function TableRowData({row}) {
+function TableRowData({row, idx}) {
   // Edit Employee
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -75,7 +75,7 @@ function TableRowData({row}) {
 
                     {/* Delete Employee */}
                     <DeleteEmployee row={row} openDelete={openDelete} handleCloseDelete={handleCloseDelete} />
-                    <ShowQRCode row={row} openDelete={openQR} handleCloseDelete={handleCloseQR} />
+                    <ShowQRCode row={row} openDelete={openQR} index={idx} handleCloseDelete={handleCloseQR} />
                     <ActivateEmployee row={row} openDelete={openActive} handleCloseDelete={handleCloseActive} />
                   </TableCell>
     </>
